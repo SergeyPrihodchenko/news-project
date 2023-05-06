@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -12,23 +14,28 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(News $news)
     {
-        //
+        $category = Category::all();
+        return view('adminPanel.createNews', ['dataEdit' => $news, 'categories' => $category]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, News $news)
     {
-        //
+        $request->flash();
+
+        $url = null;
+        $news->img = $url;
+        $news->fill($request->all())->save();
+        return redirect()->route('main');
     }
 
     /**
@@ -42,17 +49,20 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(News $news)
     {
-        //
+        $category = Category::all();
+        // $dataEdit = $news->all()->find($id);
+        dd($news);
+        return view('adminPanel.createNews', ['dataEdit' => $news, 'categories' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id = null)
     {
-        //
+        dd($request->all());
     }
 
     /**

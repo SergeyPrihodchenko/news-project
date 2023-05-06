@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\NewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [NewsController::class, 'index'])->name('main');
 
+
+Route::prefix('admin')->group(function () {
+    Route::get('/create', [AdminNewsController::class, 'create'])->name('admin.create');
+    Route::post('/store', [AdminNewsController::class, 'store'])->name('admin.store');
+    Route::get('/{news}/edit', [AdminNewsController::class, 'edit'])->name('admin.edit');
+    Route::post('/update/{id}', [AdminNewsController::class, 'update'])->name('admin.update');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
