@@ -8,6 +8,3 @@
 @section('content')
     @include('layouts.main.content')
 @endsection
-@section('footer')
-    @include('layouts.main.footer')
-@endsection

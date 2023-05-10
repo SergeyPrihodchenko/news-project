@@ -1,0 +1,10 @@
+@extends('layouts.adminPanel.index.main')
+@section('nav')
+    @include('layouts.adminPanel.index.nav')
+@endsection
+@section('sidebar')
+    @include('layouts.adminPanel.index.sidebar')
+@endsection
+@section('content')
+    @include('layouts.adminPanel.index.content')
+@endsection

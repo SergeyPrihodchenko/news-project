@@ -15,7 +15,6 @@
                 <tr>
                     <th>#</th>
                     <th>Заголовок</th>
-                    <th>Категория</th>
                     <th>Текст</th>
                     <th>Картинка</th>
                 </tr>
@@ -23,9 +22,8 @@
             <tbody>
                 @foreach ($news as $item)
                     <tr>
-                        <td>{{ __($item->id) }}</td>
+                        <td><a href="{{ route('showNews', $item) }}">{{ __($item->id) }}</a></td>
                         <td><a href="{{ route('admin.edit', $item) }}">{{ __($item->title) }}</a></td>
-                        <td>{{ __($item->id_category) }}</td>
                         <td>{{ __($item->text) }}</td>
                         @isset($item->img)
                             <td>{{ __($item->img) }}</td>

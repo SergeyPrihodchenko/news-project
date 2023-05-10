@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Category $category)
     {
-        //
+        $category = Category::all();
+        return view('indexAdmin', ['categories' => $category]);
     }
 
     /**
@@ -34,9 +38,22 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $category = DB::table('categories')
+            ->where('id', '=', $id)
+            ->select('name')
+            ->get('name');
+
+        $category_name = '';
+
+        foreach ($category as $item) {
+            $category_name = $item->name;
+        }
+
+        $news = News::where('id_category', '=', $id)->get();
+
+        return view('adminPanel.newsByCategroy', ['news' => $news, 'category' => $category_name]);
     }
 
     /**

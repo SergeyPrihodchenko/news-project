@@ -22,7 +22,7 @@ class NewsController extends Controller
     public function create(News $news)
     {
         $category = Category::all();
-        return view('adminPanel.createNews', ['dataEdit' => $news, 'categories' => $category]);
+        return view('adminPanel.createNews', ['news' => $news, 'categories' => $category]);
     }
 
     /**
@@ -31,7 +31,6 @@ class NewsController extends Controller
     public function store(Request $request, News $news)
     {
         $request->flash();
-
         $url = null;
         $news->img = $url;
         $news->fill($request->all())->save();
@@ -52,24 +51,28 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $category = Category::all();
-        // $dataEdit = $news->all()->find($id);
-        dd($news);
-        return view('adminPanel.createNews', ['dataEdit' => $news, 'categories' => $category]);
+        return view('adminPanel.createNews', ['news' => $news, 'categories' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id = null)
+    public function update(Request $request, News $news)
     {
-        dd($request->all());
+        $request->flash();
+        $news->img = null;
+        $news->fill($request->all())->save();
+
+        return redirect()->route('main');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(News $news)
     {
-        //
+        $news->delete();
+
+        return redirect()->route('main')->with('success', 'Новость удалена');
     }
 }
