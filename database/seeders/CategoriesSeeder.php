@@ -14,11 +14,11 @@ class CategoriesSeeder extends Seeder
     public function run(): void
     {
         $category = [
-            'name' => 'Спорт',
-            'name' => 'Наука',
-            'name' => 'Финансы',
-            'name' => 'Политика',
-            'name' => 'Разное',
+            ['name' => 'Спорт'],
+            ['name' => 'Наука'],
+            ['name' => 'Финансы'],
+            ['name' => 'Политика'],
+            ['name' => 'Разное'],
         ];
 
         DB::table('categories')->insert($category);

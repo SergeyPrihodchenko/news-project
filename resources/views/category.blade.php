@@ -1,0 +1,10 @@
+@extends('layouts.category.main')
+@section('nav')
+    @include('layouts.category.nav')
+@endsection
+@section('sidebar')
+    @include('layouts.category.sidebar')
+@endsection
+@section('content')
+    @include('layouts.category.content')
+@endsection

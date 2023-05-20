@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, News $news)
+    public function store(NewsRequest $request, News $news)
     {
+        $request->validated();
         $request->flash();
         $url = null;
         $news->img = $url;
@@ -57,8 +59,9 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(NewsRequest $request, News $news)
     {
+        $request->validated();
         $request->flash();
         $news->img = null;
         $news->fill($request->all())->save();
