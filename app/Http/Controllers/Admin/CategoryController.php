@@ -85,6 +85,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        News::destroy($category->id);
         $category->delete();
         return redirect()->route('admin.index', ['categories' => $category]);
     }
